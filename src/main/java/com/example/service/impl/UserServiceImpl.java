@@ -3,10 +3,11 @@ package com.example.service.impl;
 import com.example.client.UserClient;
 import com.example.model.User;
 import com.example.service.UserService;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
@@ -16,8 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getUsers() {
-        List<User> users = userClient.getUsers();
-        return users;
+        return userClient.getUsers();
     }
 
     @Override
