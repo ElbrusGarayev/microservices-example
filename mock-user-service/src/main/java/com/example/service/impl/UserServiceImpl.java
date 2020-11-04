@@ -2,10 +2,12 @@ package com.example.service.impl;
 
 import com.example.model.User;
 import com.example.service.UserService;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import lombok.AllArgsConstructor;
+
+import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
@@ -35,11 +37,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(int id, User u) {
-        users.stream().filter(user -> user.getId() == id).peek(user -> updateFields(user, u)).findFirst();
+    public void update(int id, User us) {
+        users.stream().filter(user -> user.getId() == id).peek(user -> updateFields(user, us)).findFirst();
     }
 
-    public User updateFields(User oldUser, User newUser){
+    public User updateFields(User oldUser, User newUser) {
         oldUser.setId(newUser.getId());
         oldUser.setName(newUser.getName());
         oldUser.setAge(newUser.getAge());

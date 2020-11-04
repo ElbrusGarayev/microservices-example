@@ -14,7 +14,7 @@ public class UserCreator {
     private final UserService userService;
 
     @Bean
-    public CommandLineRunner init(){
+    public CommandLineRunner init() {
         return args -> {
             userService.save(new User(1, "John Doe", 20, 1500));
             userService.save(new User(2, "Bill Gates", 50, 4500));
