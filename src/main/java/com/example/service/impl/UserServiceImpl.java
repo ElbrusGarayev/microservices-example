@@ -31,12 +31,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(int id) {
-        userClient.delete(id);
+    public User delete(int id) {
+        return userClient.delete(id);
     }
 
     @Override
-    public void update(int searchId, User user) {
-        userClient.update(searchId, user);
+    public User update(int searchId, User user) {
+        return userClient.update(searchId, user);
     }
 }

@@ -12,8 +12,8 @@ public interface UserService {
 
     User save(User user);
 
-    void delete(int id);
+    User delete(int id);
 
-    void update(int searchId, User user);
+    User update(int searchId, User user);
 
 }

@@ -19,28 +19,28 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("all")
+    @GetMapping("users")
     public List<User> getAll() {
         return userService.getAll();
     }
 
-    @GetMapping("get")
+    @GetMapping("user")
     public User get(int id) {
         return userService.get(id);
     }
 
-    @PostMapping("save")
+    @PostMapping("user-new")
     public User save(@RequestBody User user) {
         return userService.save(user);
     }
 
-    @PostMapping("delete")
-    public void delete(int id) {
-        userService.delete(id);
+    @PostMapping("user-delete")
+    public User delete(int id) {
+        return userService.delete(id);
     }
 
-    @PostMapping("update")
-    public void update(int searchId, @RequestBody User user) {
-        userService.update(searchId, user);
+    @PostMapping("user-update")
+    public User update(int searchId, @RequestBody User user) {
+        return userService.update(searchId, user);
     }
 }

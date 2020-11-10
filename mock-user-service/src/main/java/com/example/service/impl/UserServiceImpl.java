@@ -32,13 +32,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(int id) {
+    public User delete(int id) {
+        User deletedUser = get(id);
         users.removeIf(user -> user.getId() == id);
+        return deletedUser;
     }
 
     @Override
-    public void update(int id, User us) {
-        users.stream().filter(user -> user.getId() == id).peek(user -> updateFields(user, us)).findFirst();
+    public User update(int id, User us) {
+        return users.stream().filter(user -> user.getId() == id)
+                .peek(user -> updateFields(user, us))
+                .findFirst().orElseThrow(null);
     }
 
     public User updateFields(User oldUser, User newUser) {

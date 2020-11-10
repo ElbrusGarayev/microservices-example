@@ -57,7 +57,7 @@ class UserControllerTest {
     }
 
     @Test
-    void findAllUser() throws Exception {
+    void findAllUserThenSuccess() throws Exception {
         when(userService.getUsers())
                 .thenReturn(Stream.of(new User(1, "John", 20, 2000),
                         new User(2, "Bill", 30, 3000)).collect(Collectors.toList()));
@@ -71,7 +71,7 @@ class UserControllerTest {
     }
 
     @Test
-    void findOneUserThenSuccess() throws Exception {
+    void findOneUserValidIdThenSuccess() throws Exception {
         when(userService.get(anyInt())).thenReturn(user);
 
         mockMvc.perform(get("/get")
@@ -85,7 +85,7 @@ class UserControllerTest {
     }
 
     @Test
-    void whenUserNotFound() throws Exception {
+    void findUserInvalidIdThenFailed() throws Exception {
 //        when(userService.get(anyInt())).thenReturn(null);
 
         mockMvc.perform(get("/get")

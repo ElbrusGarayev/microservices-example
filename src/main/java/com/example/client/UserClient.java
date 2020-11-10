@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "UserClient", url = "http://localhost:8081/user/api")
 public interface UserClient {
 
-    @GetMapping("/all")
+    @GetMapping("/users")
     List<User> getUsers();
 
-    @GetMapping("/get")
+    @GetMapping("/user")
     User get(@RequestParam("id") int id);
 
-    @PostMapping("/save")
+    @PostMapping("/user-save")
     User save(@RequestBody User user);
 
-    @PostMapping("/delete")
-    void delete(@RequestParam("id") int id);
+    @PostMapping("/user-delete")
+    User delete(@RequestParam("id") int id);
 
-    @PostMapping("/update")
-    void update(@RequestParam("searchId") int searchId, @RequestBody User user);
+    @PostMapping("/user-update")
+    User update(@RequestParam("searchId") int searchId, @RequestBody User user);
 }
