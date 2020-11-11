@@ -35,8 +35,8 @@ public class UserController {
     }
 
     @PostMapping("user-delete")
-    public User delete(int id) {
-        return userService.delete(id);
+    public void delete(int id) {
+        userService.delete(id);
     }
 
     @PostMapping("user-update")

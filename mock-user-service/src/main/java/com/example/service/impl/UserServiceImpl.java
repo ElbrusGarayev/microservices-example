@@ -32,10 +32,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User delete(int id) {
-        User deletedUser = get(id);
+    public void delete(int id) {
         users.removeIf(user -> user.getId() == id);
-        return deletedUser;
     }
 
     @Override

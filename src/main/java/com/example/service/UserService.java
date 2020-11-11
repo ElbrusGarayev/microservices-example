@@ -12,7 +12,7 @@ public interface UserService {
 
     User save(User user);
 
-    User delete(int id);
+    String delete(int id);
 
     User update(int searchId, User user);
 

@@ -1,5 +1,7 @@
 package com.example.service.impl;
 
+import static com.example.util.StaticVariable.MESSAGE;
+
 import com.example.client.UserClient;
 import com.example.model.User;
 import com.example.service.UserService;
@@ -31,8 +33,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User delete(int id) {
-        return userClient.delete(id);
+    public String delete(int id) {
+        userClient.delete(id);
+        return MESSAGE;
     }
 
     @Override

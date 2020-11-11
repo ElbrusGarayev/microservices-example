@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
-    private static final String SUCCESS = "Success";
+    private static final String MESSAGE = "Success";
 
     @GetMapping("users")
     public ResponseEntity<List<User>> getUsers() {
@@ -35,12 +35,13 @@ public class UserController {
     }
 
     @PostMapping("user-delete")
-    public ResponseEntity<RestResponseDTO> delete(int id) {
-        return ResponseEntity.ok(new RestResponseDTO(userService.delete(id), SUCCESS));
+    public ResponseEntity<String> delete(int id) {
+        String response = userService.delete(id);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("user-update")
     public ResponseEntity<RestResponseDTO> update(int searchId, User user) {
-        return ResponseEntity.ok(new RestResponseDTO(userService.update(searchId, user), SUCCESS));
+        return ResponseEntity.ok(new RestResponseDTO(userService.update(searchId, user), MESSAGE));
     }
 }

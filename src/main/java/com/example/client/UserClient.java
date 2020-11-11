@@ -23,7 +23,7 @@ public interface UserClient {
     User save(@RequestBody User user);
 
     @PostMapping("/user-delete")
-    User delete(@RequestParam("id") int id);
+    void delete(@RequestParam("id") int id);
 
     @PostMapping("/user-update")
     User update(@RequestParam("searchId") int searchId, @RequestBody User user);
