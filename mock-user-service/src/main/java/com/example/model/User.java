@@ -1,15 +1,21 @@
 package com.example.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class User {
 
-    private int id;
+    @Id
+    private long id;
 
     private String name;
 

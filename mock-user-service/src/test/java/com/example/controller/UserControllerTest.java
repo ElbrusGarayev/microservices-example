@@ -16,13 +16,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.example.model.User;
 import com.example.service.UserService;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +35,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @WebMvcTest(UserController.class)
 @RunWith(SpringRunner.class)
-class UserControllerTest {
+public class UserControllerTest {
 
     @MockBean
     private UserService userService;
@@ -69,11 +67,11 @@ class UserControllerTest {
 
     @Test
     void findAllUserThenSuccess() throws Exception {
-        when(userService.getUsers())
+        when(userService.getAll())
                 .thenReturn(Stream.of(new User(1, "John", 20, 2000),
                         new User(2, "Bill", 30, 3000)).collect(Collectors.toList()));
 
-        mockMvc.perform(get("/users"))
+        mockMvc.perform(get("/user/api/users"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -85,7 +83,7 @@ class UserControllerTest {
     void findOneUserValidIdThenSuccess() throws Exception {
         when(userService.get(anyLong())).thenReturn(user);
 
-        mockMvc.perform(get("/user")
+        mockMvc.perform(get("/user/api//user")
                 .param("id", "1"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -99,20 +97,19 @@ class UserControllerTest {
     void saveUserValidUserThenSuccess() throws Exception {
         when(userService.save(any())).thenReturn(user);
 
-        mockMvc.perform(post("/user-save")
+        mockMvc.perform(post("/user/api//user-save")
                 .contentType(APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(givenObjectWhenConvertJsonThenSuccess(user))
                 .accept(MediaType.ALL))
-                .andExpect(status().isOk())
-                .andExpect(content().json(String.format("{'message':%s}", "Success")));
+                .andExpect(status().isOk());
     }
 
     @Test
     void deleteUserValidIsThenSuccess() throws Exception {
         when(userService.delete(anyLong())).thenReturn("Success");
 
-        mockMvc.perform(post("/user-delete")
+        mockMvc.perform(post("/user/api//user-delete")
                 .param("id", "1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Success"));
@@ -120,16 +117,14 @@ class UserControllerTest {
 
     @Test
     void updateUserValidUserUpdate() throws Exception {
-        when(userService.delete(anyLong())).thenReturn("Success");
+        when(userService.update(any())).thenReturn(user);
 
-        mockMvc.perform(post("/user-save")
+        mockMvc.perform(post("/user/api//user-save")
                 .contentType(APPLICATION_JSON)
                 .characterEncoding("UTF-8")
-                .param("searchId", "1")
                 .content(givenObjectWhenConvertJsonThenSuccess(user))
                 .accept(MediaType.ALL))
-                .andExpect(status().isOk())
-                .andExpect(content().json(String.format("{'message':%s}", "Success")));
+                .andExpect(status().isOk());
     }
 
     private String givenObjectWhenConvertJsonThenSuccess(Object obj) throws JsonProcessingException {

@@ -1,6 +1,7 @@
 package com.example.service.impl;
 
 import com.example.model.User;
+import com.example.repository.UserRepository;
 import com.example.service.UserService;
 
 import java.util.List;
@@ -13,41 +14,31 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    public List<User> users;
+    public UserRepository userRepository;
 
     @Override
     public User save(User user) {
-        users.add(user);
-        return user;
+        return userRepository.save(user);
     }
 
     @Override
-    public User get(int id) {
-        return users.stream().filter(user -> user.getId() == id).findAny().orElse(null);
+    public User get(long id) {
+        return userRepository.findById(id).orElseThrow(null);
     }
 
     @Override
     public List<User> getAll() {
-        return users;
+        return userRepository.findAll();
     }
 
     @Override
-    public void delete(int id) {
-        users.removeIf(user -> user.getId() == id);
+    public String delete(long id) {
+        userRepository.deleteById(id);
+        return "Success";
     }
 
     @Override
-    public User update(int id, User us) {
-        return users.stream().filter(user -> user.getId() == id)
-                .peek(user -> updateFields(user, us))
-                .findFirst().orElseThrow(null);
-    }
-
-    public User updateFields(User oldUser, User newUser) {
-        oldUser.setId(newUser.getId());
-        oldUser.setName(newUser.getName());
-        oldUser.setAge(newUser.getAge());
-        oldUser.setSalary(newUser.getSalary());
-        return oldUser;
+    public User update(User us) {
+        return userRepository.save(us);
     }
 }

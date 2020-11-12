@@ -17,14 +17,14 @@ public interface UserClient {
     List<User> getUsers();
 
     @GetMapping("/user")
-    User get(@RequestParam("id") int id);
+    User get(@RequestParam("id") long id);
 
     @PostMapping("/user-save")
     User save(@RequestBody User user);
 
     @PostMapping("/user-delete")
-    void delete(@RequestParam("id") int id);
+    String delete(@RequestParam("id") long id);
 
     @PostMapping("/user-update")
-    User update(@RequestParam("searchId") int searchId, @RequestBody User user);
+    User update(@RequestBody User user);
 }

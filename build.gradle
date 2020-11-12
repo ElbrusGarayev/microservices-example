@@ -29,7 +29,6 @@ tasks.withType(Checkstyle) {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
-    implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
     compile "org.springframework.cloud:spring-cloud-starter-openfeign"
     compileOnly 'org.projectlombok:lombok'
     implementation 'junit:junit:4.13'

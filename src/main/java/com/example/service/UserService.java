@@ -8,12 +8,12 @@ public interface UserService {
 
     List<User> getUsers();
 
-    User get(int id);
+    User get(long id);
 
     User save(User user);
 
-    String delete(int id);
+    String delete(long id);
 
-    User update(int searchId, User user);
+    User update(User user);
 
 }
