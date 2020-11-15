@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class RestResponseDTO<T> {
-
     private T data;
     private String message;
 }

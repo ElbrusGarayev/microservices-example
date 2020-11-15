@@ -5,6 +5,7 @@ import com.example.model.User;
 import com.example.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

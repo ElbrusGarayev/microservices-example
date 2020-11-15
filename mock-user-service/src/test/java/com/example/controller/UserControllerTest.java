@@ -19,6 +19,7 @@ import com.example.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
@@ -80,8 +81,16 @@ public class UserControllerTest {
     }
 
     @Test
+    void findOneUserInvalidIdThenFailed() throws Exception {
+        mockMvc.perform(get("/user/api/user")
+                .param("id", "5"))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void findOneUserValidIdThenSuccess() throws Exception {
-        when(userService.get(anyLong())).thenReturn(user);
+        when(userService.get(anyLong())).thenReturn(Optional.of(user));
 
         mockMvc.perform(get("/user/api//user")
                 .param("id", "1"))
@@ -106,7 +115,17 @@ public class UserControllerTest {
     }
 
     @Test
-    void deleteUserValidIsThenSuccess() throws Exception {
+    void saveUserInvalidParametersThenFailed() throws Exception {
+        mockMvc.perform(post("/user/api//user-save")
+                .contentType(APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(givenObjectWhenConvertJsonThenSuccess(null))
+                .accept(MediaType.ALL))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void deleteUserValidIdThenSuccess() throws Exception {
         when(userService.delete(anyLong())).thenReturn("Success");
 
         mockMvc.perform(post("/user/api//user-delete")
@@ -116,15 +135,34 @@ public class UserControllerTest {
     }
 
     @Test
+    void deleteUserInValidIdThenFailed() throws Exception {
+        when(userService.delete(anyLong())).thenThrow(NullPointerException.class);
+
+        mockMvc.perform(post("/user/api/user-delete")
+                .param("id", "100"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void updateUserValidUserUpdate() throws Exception {
         when(userService.update(any())).thenReturn(user);
 
-        mockMvc.perform(post("/user/api//user-save")
+        mockMvc.perform(post("/user/api/user-update")
                 .contentType(APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(givenObjectWhenConvertJsonThenSuccess(user))
                 .accept(MediaType.ALL))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void updateUserInvalidParametersUserUpdate() throws Exception {
+        mockMvc.perform(post("/user/api/user-update")
+                .contentType(APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(givenObjectWhenConvertJsonThenSuccess(null))
+                .accept(MediaType.ALL))
+                .andExpect(status().isBadRequest());
     }
 
     private String givenObjectWhenConvertJsonThenSuccess(Object obj) throws JsonProcessingException {

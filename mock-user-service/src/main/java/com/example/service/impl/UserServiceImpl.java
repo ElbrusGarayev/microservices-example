@@ -5,6 +5,7 @@ import com.example.repository.UserRepository;
 import com.example.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 import lombok.AllArgsConstructor;
 
@@ -22,8 +23,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User get(long id) {
-        return userRepository.findById(id).orElseThrow(null);
+    public Optional<User> get(long id) {
+        return userRepository.findById(id);
     }
 
     @Override
